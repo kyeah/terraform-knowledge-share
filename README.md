@@ -1,6 +1,6 @@
-# # # # # # # # # # ##
-# Terraform Workshop #
-# # # # # # # # # # ##
+<!--# # # # # # # # # # ##-->
+#     Terraform Workshop
+<!--# # # # # # # # # # ##-->
 
 Extremely underprepared 45min deep-dive on all the useful Terraform things for the well-informed app developer / on-call human
 
@@ -28,11 +28,11 @@ I should have used a presentation framework
 7. Failure Modes 2: Deposed Resources
    1. DIAGRAM TIME
 
----------------
+---
 
-# # # # # # # #
-#  Terraform  #
-# # # # # # # #
+<!--# # # # # # # #-->
+#     Terraform 
+<!--# # # # # # # #-->
 
 > HashiCorp Terraform enables you to safely and predictably create, change, and improve infrastructure. 
 > 
@@ -40,40 +40,50 @@ I should have used a presentation framework
 > 
 > that can be shared amongst team members, treated as code, edited, reviewed, and versioned.
 
+---
+
 ## Infrastructure-as-Code: Benefits
 
-    Versioned
-    Audited
-    Reproducible
-    Predictable action times (automated replacement and recovery)
+- Versioned
+- Audited
+- Reproducible
+- Automated (Predictable task times, less prone to error)
+
+---
 
 ## Terraform: Benefits
 
-    Unified language (HCL) and API
-    Define important details, hide the other stuff (Declarative config formats)
+- Unified language (HCL) and API
+- Declarative format: Define important details, hide the cruft
 
+---
 
-    => Minimize the complexity of defining infra + making changes
-       Minimize time and cost for new developers to understand infrastructure and historical context
+1. **Minimize the complexity of defining infra + making changes**
+   <br>
+   Minimize time and cost for new developers to understand infrastructure and historical context
+   
+2. **Unify configuration and deployment of services**
+   <br>
+   Scale and integrate services without significant changes to tooling, architecture, or development practices
 
-    => Unify configuration and deployment of services
-       Scale and integrate services without significant changes to tooling, architecture, or development practices
+3. **Reduce the risk of making changes**
+	<br>
+	Minimize divergence between development and production, enabling continuous deployment.
 
-    => Reduce the risk of making changes
-       Minimize divergence between development and production, enabling continuous deployment.
+    — Andrew Wiggins, https://12factor.net/
 
-       — Andrew Wiggins, https://12factor.net/
+---
 
-------------------------
-
-# # # # # # # # # # # ##
-#  Defining Resources  #
-# # # # # # # # # # # ##
+<!--# # # # # # # # # # # ##-->
+#     Defining Resources
+<!--# # # # # # # # # # # ##-->
 
 ## Hashicorp Configuration Language (HCL)
 
-    - primitive, human-friendly syntax
-    - has basic obj constructs (bool, int, string, array, hash object)
+- primitive, human-friendly syntax
+- has basic obj constructs (bool, int, string, array, hash object)
+
+---
 
 ```terraform
 resource "aws_vpc" "workshop_vpc" {
@@ -85,11 +95,17 @@ resource "aws_subnet" "public_subnet_1" {
     availability_zone = "us-east-1a"
     cidr_block = "10.0.5.0/26"
 }
+```
 
+---
+
+```
 😭 😭  😭  😭  😭  😭  😭 😭   😭   😭   😭 
 😭    you're basically writing JSON   😭
 😭😭😭 😭😭 😭 😭😭   😭   😭   😭     😭 
 ```
+
+---
 
 ## Terraform < 0.12
 
@@ -100,6 +116,8 @@ resource "aws_subnet" "public_subnet_1" {
     https://www.hashicorp.com/blog/terraform-0-1-2-preview
 
 Also: debugging sucks (don't even have good console logging options)
+
+---
 
 ## Variables
 
@@ -125,15 +143,13 @@ resource "aws_instance" "bastion" {
 }
 ```
 
----------------
+---
 
-# # # # # # # ##
-# Shared State #
-# # # # # # # ##
+<!--# # # # # # # ##-->
+#    Shared State
+<!--# # # # # # # ##-->
 
-## .....Shared state
-
-yeah that's right i skipped straight to the shared state section
+## Remote backends
 
 ```
 provider "aws" {
@@ -151,9 +167,10 @@ terraform {
 }
 ```
 
-# # # # # # # #
-#  Resources  #
-# # # # # # # #
+---
+
+<!--# # # # # # # #-->
+#      Resources
+<!--# # # # # # # #-->
 
 1. [https://github.com/18F/cloud-native-aws-terraform-workshop/](https://github.com/18F/cloud-native-aws-terraform-workshop/)
-2. [https://charity.wtf/tag/terraform/](https://github.com/18F/cloud-native-aws-terraform-workshop/)
