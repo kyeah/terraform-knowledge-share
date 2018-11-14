@@ -8,24 +8,25 @@ I should have used a presentation framework
 
 🚧 WIP 🚧
 
+---
+
 1. What is Terraform ? ? ?
 2. Creating AWS resources in terraform
    1. Resource definitions
    2. Dependency Links
    3. CLI: plan / apply (reading plan output pt 1)
-3. Terraform state (viewing tfstate, CLI queries)
-4. Terraform CLI: Modifying resources
-   1. Variables
+3. Inspecting Terraform state (viewing tfstate, CLI queries)
+4. Modifying and tainting resources
+   1. Variables, Data sources
    2. Detecting discrepencies between config and aws (how state is updated before commands)
       1. maybe add in a manual change from the aws console to show how it works better
    3. changesets (modifying resources vs. create-and-destroy) (how to read plan output pt 2)
-   4. Terraform CLI: Tainting resources
-5. Case study: Newrelic + Pagerduty setup
-   1. Modules, Data resources
-6. Failure Modes 1: Poisoned Locks
-   1. Shared state
-   2. Deleting Lockfile
-7. Failure Modes 2: Deposed Resources
+5. Shared State
+   1. Remote Backends
+   2. Lockfiles
+6. Case study: Newrelic + Pagerduty setup
+   1. Modules, multiple providers, best practices
+7. Postmortem: Deposed Resources
    1. DIAGRAM TIME
 
 ---
@@ -145,6 +146,12 @@ resource "aws_instance" "bastion" {
 
 ---
 
+<!--# # # # # # # #-->
+#    Case Study: New Relic and Pagerduty Setup
+<!--# # # # # # # #-->
+
+Using modules, relying on existing data resources
+
 <!--# # # # # # # ##-->
 #    Shared State
 <!--# # # # # # # ##-->
@@ -166,6 +173,22 @@ terraform {
   }
 }
 ```
+
+---
+
+## tf_lock
+
+## poisoned locks
+
+
+
+---
+
+<!--# # # # # # # #-->
+#      Deposed Resources
+<!--# # # # # # # #-->
+
+d i a g r a m
 
 ---
 
