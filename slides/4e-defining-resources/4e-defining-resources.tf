@@ -32,4 +32,4 @@ data "aws_subnet" "public_subnet_1" {
 # }
 
 # note for kevin don't look
-# alt: ami-e3063199
+# ami-e3063199
