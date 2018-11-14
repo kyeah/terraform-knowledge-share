@@ -2,6 +2,8 @@
                           #  Defining Resources  #
                           # # # # # # # # # # # ##
 
+# Previously-made resources
+#
 data "aws_vpc" "workshop_vpc" {
   tags {
     source = "QPP Knowledge Share"
@@ -24,6 +26,9 @@ data "aws_subnet" "public_subnet_1" {
 #     associate_public_ip_address = true
 #     key_name = "kevin-tf-knowledge-share-test"
 #     instance_type = "t2.micro"
+#     tags {
+#       source = "QPP Knowledge Share"
+#     }
 # }
 
 # note for kevin don't look
