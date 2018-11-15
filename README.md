@@ -1,6 +1,6 @@
 # Terraform
 
-#   T O C
+##   T O C
 
 1. What is Terraform ? ? ?
 2. Creating resources
@@ -11,7 +11,7 @@
 a. Modules, Multiple providers, Best practices
 7. Postmortem: Deposed Resources
 
-#  Terraform: An Intro
+##  Terraform: An Intro
 
 > HashiCorp Terraform enables you to safely and predictably create, change, and improve infrastructure. 
 > 
@@ -19,36 +19,34 @@ a. Modules, Multiple providers, Best practices
 > 
 > that can be shared amongst team members, treated as code, edited, reviewed, and versioned.
 
-## Infrastructure-as-Code: Benefits
+### Infrastructure-as-Code: Benefits
 
 - Versioned
 - Audited
 - Reproducible
 - Predictable action times (automated replacement and recovery)
 
-## Terraform: Benefits
+### Terraform: Benefits
 
 - Unified language (HCL) and API
 - Define important details, hide the other stuff (Declarative config formats)
   
-## Andrew Wiggins, https://12factor.net/
+### 12 Factor App Design
 
+Andrew Wiggins, [https://12factor.net/](https://12factor.net/)
 
-## Terraform: Benefits
-12 Factor Apps: Andrew Wiggins, [https://12factor.net/](https://12factor.net/)
+- Minimize the complexity of defining infra + making changes
+  - Minimize time and cost for new developers to understand infrastructure and historical context
 
-=> Minimize the complexity of defining infra + making changes
-=> Minimize time and cost for new developers to understand infrastructure and historical context
+- Unify configuration and deployment of services
+  - Scale and integrate services without significant changes to tooling, architecture, or development practices
 
-=> Unify configuration and deployment of services
-=> Scale and integrate services without significant changes to tooling, architecture, or development practices
+- Reduce the risk of making changes
+  - Minimize divergence between development and production, enabling continuous deployment.
 
-=> Reduce the risk of making changes
-=> Minimize divergence between development and production, enabling continuous deployment.
+##  Defining Resources
 
-#  Defining Resources
-
-## Hashicorp Configuration Language (HCL)
+### Hashicorp Configuration Language (HCL)
 
 - primitive, human-friendly syntax
 - has basic obj constructs (bool, int, string, array, hash object)
@@ -79,7 +77,7 @@ resource "aws_subnet" "public_subnet_1" {
 }
 ```
 
-## Terraform < 0.12
+### Terraform < 0.12
 
 - no for loops;
 - limited if/else support
@@ -90,7 +88,7 @@ resource "aws_subnet" "public_subnet_1" {
 
 Also: no debugging support (not even printf)
 
-## Modification; Variables; Outputs
+### Modification; Variables; Outputs
 
 ```terraform
 # Previously-made resources
@@ -137,7 +135,7 @@ variable "ami_id" {
  # terraform-docs md . > README.md
 ```
 
-## Modules
+### Modules
 
 ```terraform
 module "chapter_4e_aws_instance" {
@@ -157,7 +155,7 @@ resource "aws_instance" "bastion" {
 }
 ```
 
-##     Shared State
+###     Shared State
 
 ```terraform
 module "chapter_4e_aws_instance" {
@@ -179,9 +177,9 @@ module "chapter_4e_aws_instance" {
  }
 ```
 
-# Case Study: New Relic and Pagerduty
+## Case Study: New Relic and Pagerduty
 
-## Main file
+### Main file
 
 ```terraform
 # Define the storage backend for the state file.
@@ -216,7 +214,7 @@ provider "newrelic" {
 }
 ```
 
-## New Relic Alerts
+### New Relic Alerts
 
 ```terraform
 # terraform newrelic docs: https://www.terraform.io/docs/providers/newrelic/index.html
@@ -250,7 +248,7 @@ resource "newrelic_alert_policy" "dev" {
 # }
 ```
 
-## Pagerduty Integration
+### Pagerduty Integration
 
 ```terraform
 # terraform pagerduty docs: https://www.terraform.io/docs/providers/pagerduty/index.html
@@ -280,7 +278,7 @@ resource "newrelic_alert_policy" "dev" {
 # }
 ```
 
-# Postmortem: Deposed Resources and Duplicate ASG Names
+## Postmortem: Deposed Resources and Duplicate ASG Names
 
 A resource is deposed when it is created by terraform, but fails to instantiate correctly.
 These resources are tracked in the terraform state, and will be deleted in the next terraform apply.
@@ -303,7 +301,7 @@ Original State   |ASG A|-============-|Launch Config A|
                   |_____|
 ```
 
-#  Resources
+##  Resources
 
 1. https://github.com/18F/cloud-native-aws-terraform-workshop/
 2. https://charity.wtf/2016/02/23/two-weeks-with-terraform/
