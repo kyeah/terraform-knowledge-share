@@ -23,28 +23,34 @@ a. Modules, Multiple providers, Best practices
 
 ### Infrastructure-as-Code: Benefits
 
-1. Versioned
-2. Audited
-3. Reproducible
-4. Predictable action times (automated replacement and recovery)
+- Versioned
+- Audited
+- Reproducible
+- Predictable action times (automated replacement and recovery)
 
 ### Terraform: Benefits
 
-1. Unified language (HCL) and API
-2. Define important details, hide the other stuff (Declarative config formats)
+- Unified language (HCL) and API
+- Define important details, hide the other stuff (Declarative config formats)
   
 ### 12 Factor App Design
 
 Andrew Wiggins, [https://12factor.net/](https://12factor.net/)
 
 1. Minimize the complexity of defining infra + making changes
-   1. Minimize time and cost for new developers to understand infrastructure and historical context
+   ```
+   Minimize time and cost for new developers to understand infrastructure and historical context.
+   ```
 
 2. Unify configuration and deployment of services
-   1. Scale and integrate services without significant changes to tooling, architecture, or development practices
+   ```
+   Scale and integrate services without significant changes to tooling, architecture, or development practices.
+   ```
 
 3. Reduce the risk of making changes
-   1. Minimize divergence between development and production, enabling continuous deployment.
+   ```
+   Minimize divergence between development and production, enabling continuous deployment.
+   ```
 
 ---
 
