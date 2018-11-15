@@ -23,28 +23,28 @@ a. Modules, Multiple providers, Best practices
 
 ### Infrastructure-as-Code: Benefits
 
-- Versioned
-- Audited
-- Reproducible
-- Predictable action times (automated replacement and recovery)
+1. Versioned
+2. Audited
+3. Reproducible
+4. Predictable action times (automated replacement and recovery)
 
 ### Terraform: Benefits
 
-- Unified language (HCL) and API
-- Define important details, hide the other stuff (Declarative config formats)
+1. Unified language (HCL) and API
+2. Define important details, hide the other stuff (Declarative config formats)
   
 ### 12 Factor App Design
 
 Andrew Wiggins, [https://12factor.net/](https://12factor.net/)
 
-- Minimize the complexity of defining infra + making changes
-  - Minimize time and cost for new developers to understand infrastructure and historical context
+1. Minimize the complexity of defining infra + making changes
+   1. Minimize time and cost for new developers to understand infrastructure and historical context
 
-- Unify configuration and deployment of services
-  - Scale and integrate services without significant changes to tooling, architecture, or development practices
+2. Unify configuration and deployment of services
+   1. Scale and integrate services without significant changes to tooling, architecture, or development practices
 
-- Reduce the risk of making changes
-  - Minimize divergence between development and production, enabling continuous deployment.
+3. Reduce the risk of making changes
+   1. Minimize divergence between development and production, enabling continuous deployment.
 
 ---
 
@@ -61,7 +61,7 @@ Andrew Wiggins, [https://12factor.net/](https://12factor.net/)
  😭😭😭 😭😭 😭 😭😭   😭   😭   😭     😭 
 ```
 
-```terraform
+```tf
 resource "aws_vpc" "workshop_vpc" {
   cidr_block = "10.0.241.0/24"
 
@@ -94,7 +94,7 @@ Also: no debugging support (not even printf)
 
 ### Modification; Variables; Outputs
 
-```terraform
+```tf
 # Previously-made resources
 #
 data "aws_vpc" "workshop_vpc" {
@@ -141,7 +141,7 @@ variable "ami_id" {
 
 ### Modules
 
-```terraform
+```tf
 module "chapter_4e_aws_instance" {
   ami_id = "ami-e3063199"
 }
@@ -161,7 +161,7 @@ resource "aws_instance" "bastion" {
 
 ### Shared State
 
-```terraform
+```tf
 module "chapter_4e_aws_instance" {
   ami_id = "ami-e3063199"
 }
@@ -187,7 +187,7 @@ module "chapter_4e_aws_instance" {
 
 ### Main file
 
-```terraform
+```tf
 # Define the storage backend for the state file.
 terraform {
   backend "s3" {
@@ -222,7 +222,7 @@ provider "newrelic" {
 
 ### New Relic Alerts
 
-```terraform
+```tf
 # terraform newrelic docs: https://www.terraform.io/docs/providers/newrelic/index.html
 #
 # Set up some alerts using modules.
@@ -256,7 +256,7 @@ module "newrelic_alerts_dev_apm_web" {
 
 ### Pagerduty Integration
 
-```terraform
+```tf
 # terraform pagerduty docs: https://www.terraform.io/docs/providers/pagerduty/index.html
 
 # Store the pagerduty-newrelic service keys in S3.
