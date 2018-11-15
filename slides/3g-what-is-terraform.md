@@ -12,5 +12,3 @@
 
     => Reduce the risk of making changes
 #      Minimize divergence between development and production, enabling continuous deployment.
-
-#      — Andrew Wiggins, https://12factor.net/

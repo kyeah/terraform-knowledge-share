@@ -2,22 +2,8 @@
                           #     Shared State     #
                           # # # # # # # # # # # ##
 
-# Previously-made resources
-#
-data "aws_vpc" "workshop_vpc" {
-  tags {
-    source = "QPP Knowledge Share"
-  }
-}
-
-data "aws_subnet" "public_subnet_1" {
-  vpc_id = "${data.aws_vpc.workshop_vpc.id}"
-}
-
-data "aws_instance" "bastion" {
-  instance_tags = {
-    source = "QPP Knowledge Share"
-  }
+module "chapter_4e_aws_instance" {
+  ami_id = "ami-e3063199"
 }
 
 # provider "aws" {
@@ -27,7 +13,8 @@ data "aws_instance" "bastion" {
 
 # terraform {
 #   backend "s3" {
-#     bucket         = "some-bucket"
+#     TODO
+#     bucket         = "kevin-qpp-knowledge-share-test"
 #     key            = "app-dev/terraform/terraform.tfstate"
 #     region         = "us-east-1"
 #     dynamodb_table = "tf_lock"
