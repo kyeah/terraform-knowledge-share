@@ -11,6 +11,8 @@
 a. Modules, Multiple providers, Best practices
 7. Postmortem: Deposed Resources
 
+---
+
 ##  Terraform: An Intro
 
 > HashiCorp Terraform enables you to safely and predictably create, change, and improve infrastructure. 
@@ -44,7 +46,9 @@ Andrew Wiggins, [https://12factor.net/](https://12factor.net/)
 - Reduce the risk of making changes
   - Minimize divergence between development and production, enabling continuous deployment.
 
-##  Defining Resources
+---
+
+##  Working With Resources
 
 ### Hashicorp Configuration Language (HCL)
 
@@ -155,7 +159,7 @@ resource "aws_instance" "bastion" {
 }
 ```
 
-###     Shared State
+### Shared State
 
 ```terraform
 module "chapter_4e_aws_instance" {
@@ -176,6 +180,8 @@ module "chapter_4e_aws_instance" {
    }
  }
 ```
+
+---
 
 ## Case Study: New Relic and Pagerduty
 
@@ -218,8 +224,8 @@ provider "newrelic" {
 
 ```terraform
 # terraform newrelic docs: https://www.terraform.io/docs/providers/newrelic/index.html
-
-# Set up some alerts using a module.
+#
+# Set up some alerts using modules.
 data "newrelic_application" "dev" {
   name = "Terraform Knowledge Share - dev"
 }
@@ -228,24 +234,24 @@ resource "newrelic_alert_policy" "dev" {
   name = "Terraform Knowledge Share - test dev alert policy"
 }
 
-# locals {
-#   where_dev_host          = "(`hostname` LIKE '%tf-knowledge-share-test-app-dev%')"
-#   where_dev_host_and_node = "${local.where_dev_host} AND `commandName` = 'node'"
-# }
+locals {
+  where_dev_host          = "(`hostname` LIKE '%tf-knowledge-share-test-app-dev%')"
+  where_dev_host_and_node = "${local.where_dev_host} AND `commandName` = 'node'"
+}
 
-# module "newrelic_alerts_dev_infra" {
-#   source         = "git@github.com:CMSgov/tf-newrelic//alerts/infra_base?ref=v1.0.0"
-#   policy_id      = "${newrelic_alert_policy.dev.id}"
-#   where          = "${local.where_dev_host}"
-#   high_ram_name  = "High Ram Usage (node)"
-#   high_ram_where = "${local.where_dev_host_and_node}"
-# }
+module "newrelic_alerts_dev_infra" {
+  source         = "git@github.com:CMSgov/tf-newrelic//alerts/infra_base?ref=v1.0.0"
+  policy_id      = "${newrelic_alert_policy.dev.id}"
+  where          = "${local.where_dev_host}"
+  high_ram_name  = "High Ram Usage (node)"
+  high_ram_where = "${local.where_dev_host_and_node}"
+}
 
-# module "newrelic_alerts_dev_apm_web" {
-#   source         = "git@github.com:CMSgov/tf-newrelic//alerts/apm_web_base?ref=v1.0.0"
-#   policy_id       = "${newrelic_alert_policy.dev.id}"
-#   newrelic_app_id = "${data.newrelic_application.dev.id}"
-# }
+module "newrelic_alerts_dev_apm_web" {
+  source         = "git@github.com:CMSgov/tf-newrelic//alerts/apm_web_base?ref=v1.0.0"
+  policy_id       = "${newrelic_alert_policy.dev.id}"
+  newrelic_app_id = "${data.newrelic_application.dev.id}"
+}
 ```
 
 ### Pagerduty Integration
@@ -256,27 +262,29 @@ resource "newrelic_alert_policy" "dev" {
 # Store the pagerduty-newrelic service keys in S3.
 # When setting this up for the first time, you must ensure that the key is encrypted.
 #
-# data "aws_s3_bucket_object" "pagerduty_low_priority_newrelic_service_key" {
-#   bucket = "some-bucket"
-#   key    = "terraform-knowledge-share/terraform/pagerduty_low_priority_newrelic_service_key.txt"
-# }
+data "aws_s3_bucket_object" "pagerduty_low_priority_newrelic_service_key" {
+  bucket = "some-bucket"
+  key    = "terraform-knowledge-share/terraform/pagerduty_low_priority_newrelic_service_key.txt"
+}
 
-# resource "newrelic_alert_channel" "pagerduty_low_priority" {
-#   name = "Terraform Knowledge Share - Pagerduty Alert Channel Low Priority"
-#   type = "pagerduty"
+resource "newrelic_alert_channel" "pagerduty_low_priority" {
+  name = "Terraform Knowledge Share - Pagerduty Alert Channel Low Priority"
+  type = "pagerduty"
 
-#   configuration = {
-#     service_key = "${data.aws_s3_bucket_object.pagerduty_low_priority_newrelic_service_key.body}"
-#   }
-# }
+  configuration = {
+    service_key = "${data.aws_s3_bucket_object.pagerduty_low_priority_newrelic_service_key.body}"
+  }
+}
 
-# # Link alert policies to low-priority channel.
-# #
-# resource "newrelic_alert_policy_channel" "dev_pagerduty_low_priority" {
-#   policy_id  = "${newrelic_alert_policy.dev.id}"
-#   channel_id = "${newrelic_alert_channel.pagerduty_low_priority.id}"
-# }
+# Link alert policies to low-priority channel.
+#
+resource "newrelic_alert_policy_channel" "dev_pagerduty_low_priority" {
+  policy_id  = "${newrelic_alert_policy.dev.id}"
+  channel_id = "${newrelic_alert_channel.pagerduty_low_priority.id}"
+}
 ```
+
+---
 
 ## Postmortem: Deposed Resources and Duplicate ASG Names
 
@@ -300,6 +308,8 @@ Original State   |ASG A|-============-|Launch Config A|
  Apply 2          |ASG B|
                   |_____|
 ```
+
+---
 
 ##  Resources
 
