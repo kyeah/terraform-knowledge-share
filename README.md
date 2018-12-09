@@ -1,5 +1,13 @@
 # Terraform
 
+This is meant to be run as an interactive slides/live-demo presentation in emacs, with syntax highlighting.
+
+Yes, I know how that sounds.
+
+![](github/imgs/s1.png)
+![](github/imgs/s2.png)
+![](github/imgs/s3.png)
+
 ##   T O C
 
 1. What is Terraform ? ? ?
